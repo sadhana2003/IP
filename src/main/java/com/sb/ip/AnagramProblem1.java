@@ -12,34 +12,36 @@ public class AnagramProblem1 {
         String str1 = args[0];
         String str2 = args[1];
         AnagramProblem1 anagramProblem1 = new AnagramProblem1();
-        boolean result = anagramProblem1.isAnagram(str1,str2);
-        System.out.println("Anagrams of each other = " + result );
+        boolean result = anagramProblem1.isAnagram(str1, str2);
+        System.out.println("Anagrams of each other = " + result);
     }
 
-    public boolean isAnagram(String s1, String s2 ){
-        if(s1.length() != s2.length()){
+    public boolean isAnagram(String s1, String s2) {
+        if (s1.length() != s2.length()) {
             return false;
         }
+        s1 = s1.toLowerCase();
+        s2 = s2.toLowerCase();
         Map<Character, Integer> map = new HashMap<>();
-        for (char c: s1.toCharArray()) {
+        for (char c : s1.toCharArray()) {
             //System.out.println(c);
             Integer counter = map.get(c);
-            if(counter == null){
+            if (counter == null) {
                 counter = 0;
             }
             map.put(c, ++counter);
         }
-        for (char c: s2.toCharArray()) {
+        for (char c : s2.toCharArray()) {
             //System.out.println(c);
             Integer counter = map.get(c);
-            if(counter == null){
+            if (counter == null) {
                 counter = 0;
             }
             map.put(c, --counter);
         }
         Iterator<Integer> mapValuesIterator = map.values().iterator();
-        while(mapValuesIterator.hasNext()){
-            if(mapValuesIterator.next() != 0){
+        while (mapValuesIterator.hasNext()) {
+            if (mapValuesIterator.next() != 0) {
                 return false;
             }
         }
