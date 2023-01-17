@@ -40,25 +40,36 @@ public class ProductOfArrayExceptSelf1 {
         }
     }
 
-    // [1,4,7,2]
+    // [0, 1,4,7,2, 0, 8 , 9 , 3 , 4 , 5]
+    // find
     public int[] productExceptSelf(int[] nums) {
         int[] productArray = new int[nums.length];
-        for (int i = 0; i < nums.length; i++) {
-            //System.out.println("Index:" + i + " Current Value:" + nums[i]);
-//            if ((i + 1) < nums.length) {
-//                //System.out.println("Next Value: " + nums[i + 1]);
-//            }
-            int productOfAllElementsExceptCurrent = 1;
-            for (int j = 0; j < nums.length; j++) {
-                if (j == i) {
-                    continue;
-                }
-                productOfAllElementsExceptCurrent *= nums[j];
+        // step 1: find product of entire array excluding 0s and count of zeroes
+        int product = 1;
+        int numberOfZeroes = 0;
+        for (int element : nums) {
+            if (element == 0){
+                numberOfZeroes++;
+            } else {
+                product *= element;
             }
+        }
+        // step 2:
+        // productArray[i] = 0 if count of zeroes is greater than 1
+        // productArray[i] = "divide product by nums[i]" if count of zeroes is 0
+        // productArray[i] = "product" if count of zeroes is 1 and nums[i] == 0
+        // productArray[i] = "0" if count of zeroes is 1 and nums[i] != 0
 
-            productArray[i] = productOfAllElementsExceptCurrent;
-            System.out.println("Index:" + i + " Current Value:" + nums[i] + " Product Array Value " + productArray[i]);
-
+        for (int i = 0; i < nums.length ; i++) {
+             if(numberOfZeroes == 0) {
+                productArray[i] = product / nums[i];
+            } else if (numberOfZeroes > 1){
+                 productArray[i] = 0;
+             } else if (numberOfZeroes == 1 && nums[i] == 0) {
+                 productArray[i] = product;
+             } else if (numberOfZeroes == 1 && nums[i] != 0){
+                 productArray[i] = 0;
+             }
         }
         return productArray;
     }
