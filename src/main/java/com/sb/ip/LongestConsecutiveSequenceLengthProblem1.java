@@ -36,35 +36,6 @@ public class LongestConsecutiveSequenceLengthProblem1 {
         int lengthOfLongestConsecutive = longestConsecutiveSequenceLengthProblem1.longestConsecutive(intArr);
         System.out.println(lengthOfLongestConsecutive);
     }
-    public int longestConsecutive(int[] nums) {
-        Arrays.sort(nums);
-        int lengthOfSequence = 1;
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i = 0; i < nums.length-1; i++) {
-            int currElement = nums[i];
-            int nextElement= nums[i+1];
-            if (currElement == nextElement){
-                continue;
-            } else if(nextElement == currElement+1) {
-                map.remove(currElement);
-                lengthOfSequence++;
-            } else {
-                lengthOfSequence = 1;
-            }
-
-            map.put(nextElement,lengthOfSequence);
-        }
-        // now iterate through hashmap
-        Iterator<Integer> valuesIterator = map.values().iterator();
-        int maxValue = 0;
-        while(valuesIterator.hasNext()){
-            int value = valuesIterator.next();
-            if (value > maxValue){
-                maxValue = value;
-            }
-        }
-        return maxValue;
-    }
 
     public static int[] StringArrToIntArr(String[] s) {
         int[] result = new int[s.length];
@@ -72,5 +43,36 @@ public class LongestConsecutiveSequenceLengthProblem1 {
             result[i] = Integer.parseInt(s[i]);
         }
         return result;
+    }
+
+    public int longestConsecutive(int[] nums) {
+        Arrays.sort(nums);
+        int lengthOfSequence = 1;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length - 1; i++) {
+            int currElement = nums[i];
+            int nextElement = nums[i + 1];
+            if (currElement == nextElement) {
+                continue;
+
+            } else if (nextElement == currElement + 1) {
+                map.remove(currElement);
+                lengthOfSequence++;
+            } else {
+                lengthOfSequence = 1;
+            }
+
+            map.put(nextElement, lengthOfSequence);
+        }
+        // now iterate through hashmap
+        Iterator<Integer> valuesIterator = map.values().iterator();
+        int maxValue = 0;
+        while (valuesIterator.hasNext()) {
+            int value = valuesIterator.next();
+            if (value > maxValue) {
+                maxValue = value;
+            }
+        }
+        return maxValue;
     }
 }
